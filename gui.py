@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
-import os
-import threading
+from os import startfile
+from threading import Thread
 from pdf_processor import process_pdf
 
 class PDFProcessorGUI(tk.Tk):
@@ -59,7 +59,7 @@ class PDFProcessorGUI(tk.Tk):
             return
 
         self.start_button.config(state=tk.DISABLED)
-        threading.Thread(target=self.run_processing, args=(input_file, output_dir)).start()
+        Thread(target=self.run_processing, args=(input_file, output_dir)).start()
 
     def run_processing(self, input_file, output_dir):
         try:
@@ -76,7 +76,7 @@ class PDFProcessorGUI(tk.Tk):
 
     def show_completion_message(self, output_dir):
         def open_folder():
-            os.startfile(output_dir)
+            startfile(output_dir)
             completion_window.destroy()
 
         completion_window = tk.Toplevel(self)
