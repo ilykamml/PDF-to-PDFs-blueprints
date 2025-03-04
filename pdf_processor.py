@@ -30,8 +30,10 @@ def process_pdf(input_file, output_dir, progress_callback=None):
     total_blueprints = len(blueprints_handler)
     i = 0
 
+    replacements = str.maketrans({"/": "_", "\\": "_", "|": "_", "?": "_", "*": "_", '"': "_", ":": "_", "<": "_", ">": "_"})
+
     for code, pages in blueprints_handler.items():
-        blueprint_title = pages[0]
+        blueprint_title = pages[0].translate(replacements)
         page_numbers = pages[1:]
 
         new_pdf = pdfopen()
